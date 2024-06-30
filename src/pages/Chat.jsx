@@ -9,6 +9,13 @@ import {
 import { InputBox } from "../components/styles/StyledComponent";
 import { orange } from "@mui/material/colors";
 import FileMenu from "../components/dialogs/FileMenu";
+import { samapleMessage, sampleChats } from "../components/constants/sampleData";
+import MessageComponent from "../components/shared/MessageComponent";
+
+const user = {
+  _id : "jkdlsjdks",
+  name : "Keyur Ritul"
+}
 
 const Chat = () => {
   const containerRef = useRef(null);
@@ -27,6 +34,10 @@ const Chat = () => {
         }}
       >
         {/* message  */}
+
+        {samapleMessage.map(i=>(
+          <MessageComponent key={i._id} message={i} user={user}/>
+        ))}
       </Stack>
       <form
         style={{

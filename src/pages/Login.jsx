@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { CameraAlt as CameraAltIcon, Password } from '@mui/icons-material';
 import { VisuallyHiddenInput } from '../components/styles/StyledComponent';
+import { bgGradiyent } from '../components/constants/color';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -66,7 +67,7 @@ const Login = () => {
   }
 
   return (
-    <div style={{ backgroundImage: "linear-gradient(rgb(255 225 209),rgb(249 159 159))" }}>
+    <div style={{ backgroundImage: bgGradiyent }}>
     <Container
       component={'main'}
       maxWidth="xs"

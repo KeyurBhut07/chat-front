@@ -10,66 +10,77 @@
 
 export const sampleChats = [
   {
-    avatar: ["https://randomuser.me/api/portraits/women/32.jpg"],
-    _id: "1",
-    name: "John",
+    avatar: ['https://randomuser.me/api/portraits/women/32.jpg'],
+    _id: '1',
+    name: 'John',
     groupChat: false,
-    member: ["1", "2"],
+    member: ['1', '2'],
   },
   {
-    avatar: ["https://randomuser.me/api/portraits/women/32.jpg"],
-    _id: "2",
-    name: "Keyur",
+    avatar: ['https://randomuser.me/api/portraits/women/32.jpg'],
+    _id: '2',
+    name: 'Keyur',
     groupChat: false,
-    member: ["1", "2"],
-  },
+    member: ['1', '2'],
+  }
 ];
 
 export const sampleUsers = [
   {
-    _id: "1",
-    name: "John",
-    avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+    _id: '1',
+    name: 'John',
+    avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
   },
   {
-    _id: "2",
-    name: "KB",
-    avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+    _id: '2',
+    name: 'KB',
+    avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
   },
   {
-    _id: "3",
-    name: "AK",
-    avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+    _id: '3',
+    name: 'AK',
+    avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
   },
 ];
 
 export const sampleNotifications = [
   {
     sender: {
-      name: "AK",
-      avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+      name: 'AK',
+      avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
     },
-    _id: "1",
+    _id: '1',
   },
   {
     sender: {
-      name: "KB",
-      avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+      name: 'KB',
+      avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
     },
-    _id: "2",
+    _id: '2',
   },
 ];
 
 export const samapleMessage = [
   {
-    attchments: [{ public_id: "asdas", url: "link" }],
-    content: "Loda ka message hai",
-    _id: "dsfsdfsdfsdfd",
+    attchments: [{ public_id: 'asdas', url: 'https://randomuser.me/api/portraits/women/32.jpg' }],
+    content: '',
+    _id: 'dsfsdfsdfsdfd',
     sender: {
-      _id: "user._id",
-      name: "chaman",
+      _id: 'user._id',
+      name: 'chaman',
     },
-    chat: "chatId",
-    createdAt: "Date",
+    chat: 'chatId',
+    createdAt: 'Date',
   },
+  {
+    attchments: [],
+    content: 'ka message hai 2',
+    _id: 'dsfsdfsdfsdfdddsds',
+    sender: {
+      _id: 'jkdlsjdks',
+      name: 'chaman 2',
+    },
+    chat: 'chatId',
+    createdAt: 'Date',
+  }
 ];
