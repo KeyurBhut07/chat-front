@@ -1,5 +1,5 @@
-import React from 'react';
-import AdminLayout from '../../components/layout/AdminLayout';
+import React from 'react'
+import AdminLayout from '../../components/layout/AdminLayout'
 
 const Dashboard = () => {
   return (
@@ -8,7 +8,7 @@ const Dashboard = () => {
         <div>Dashboard</div>
       </AdminLayout>
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
