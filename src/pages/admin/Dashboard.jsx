@@ -4,6 +4,7 @@ import { Box, Container, Paper, Stack, Typography } from '@mui/material'
 import {
   AdminPanelSettings,
   Group,
+  Message,
   Notifications,
   Person,
 } from '@mui/icons-material'
@@ -12,6 +13,7 @@ import {
   CurveButton,
   SearchField,
 } from '../../components/styles/StyledComponent'
+import { DoughnutChart, LineChart } from '../../components/specific/Charts'
 
 const Dashboard = () => {
   const Appbar = (
@@ -51,8 +53,14 @@ const Dashboard = () => {
           xs: 'column',
           sm: 'row',
         }}
+        spacing={'2rem'}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+        margin={'2rem 0'}
       >
-        ad
+        <Widget title={'User'} value={'34'} Icon={<Person />} />
+        <Widget title={'Chats'} value={'3'} Icon={<Group />} />
+        <Widget title={'Messages'} value={'434'} Icon={<Message />} />
       </Stack>
     </>
   )
@@ -77,7 +85,7 @@ const Dashboard = () => {
               <Typography variant="h4" margin={'2rem 0'}>
                 Last Messages
               </Typography>
-              {'Chats'}
+              <LineChart />
             </Paper>
             <Paper
               elevation={3}
@@ -93,7 +101,7 @@ const Dashboard = () => {
                 height: '25rem',
               }}
             >
-              {'Dougnut chart'}
+              <DoughnutChart />
 
               <Stack
                 position={'absolute'}
@@ -116,5 +124,38 @@ const Dashboard = () => {
     </>
   )
 }
+
+const Widget = ({ title, value, Icon }) => (
+  <Paper
+    elevation={5}
+    sx={{
+      padding: '2rem',
+      margin: '2rem 0',
+      borderRadius: '1.5rem',
+      width: '20rem',
+    }}
+  >
+    <Stack alignItems={'center'} spacing={'1rem'}>
+      <Typography
+        sx={{
+          color: 'rgba(0,0,0,0.7)',
+          borderRadius: '50%',
+          border: '6px solid rgba(0,0,0,0.9)',
+          height: '5rem',
+          width: '5rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {value}
+      </Typography>
+      <Stack direction={'row'} alignItems={'center'} spacing={'1rem'}>
+        {Icon}
+        <Typography>{title}</Typography>
+      </Stack>
+    </Stack>
+  </Paper>
+)
 
 export default Dashboard
