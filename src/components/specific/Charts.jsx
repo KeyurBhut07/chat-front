@@ -1,5 +1,5 @@
-import React from 'react'
-import { Line, Doughnut } from 'react-chartjs-2'
+import React from 'react';
+import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   Tooltip,
@@ -11,7 +11,9 @@ import {
   ArcElement,
   Legend,
   scales,
-} from 'chart.js'
+} from 'chart.js';
+import { getLast7Days } from '../lib/features';
+import { orange } from '../constants/color';
 
 ChartJS.register(
   Tooltip,
@@ -22,7 +24,9 @@ ChartJS.register(
   LineElement,
   ArcElement,
   Legend
-)
+);
+
+const lables = getLast7Days();
 
 const lineChartOptions = {
   responsive: true,
@@ -47,46 +51,47 @@ const lineChartOptions = {
       },
     },
   },
-}
+};
 
-const LineChart = () => {
+const LineChart = ({ value = [] }) => {
   const data = {
-    labels: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ],
+    labels: lables,
     datasets: [
       {
-        label: 'Dataset 1',
-        data: [0, 10, 5, 2, 20, 30],
+        label: 'Last 7 days message',
+        data: value,
         fill: true,
         borderColor: 'rgb(255, 99, 132,1)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
+    ],
+  };
+  return <Line data={data} options={lineChartOptions} />;
+};
+
+const doughuntChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  cutout: 130,
+};
+
+const DoughnutChart = ({ value = [], labale = [] }) => {
+  const data = {
+    labels: labale,
+    datasets: [
       {
-        label: 'Dataset 2',
-        data: [1, 15, 23, 9, 8, 5],
-        borderColor: 'rgb(75,12,192,0.7)',
-        fill: true,
-        backgroundColor: 'rgba(75,12,192,1)',
+        data: value,
+        borderColor: ['rgb(255, 99, 132,1)', orange],
+        backgroundColor: ['rgba(255, 99, 132, 0.5)', orange],
+        offset : 10
       },
     ],
-  }
-  return <Line data={data} options={lineChartOptions} />
-}
+  };
+  return <Doughnut style={{zIndex : 10}} data={data} options={doughuntChartOptions} />;
+};
 
-const DoughnutChart = () => {
-  return <div>Charts</div>
-}
-
-export { LineChart, DoughnutChart }
+export { LineChart, DoughnutChart };
