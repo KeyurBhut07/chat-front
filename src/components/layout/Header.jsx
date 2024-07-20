@@ -18,6 +18,9 @@ import {
   Notifications as NotificationsIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userNotExits } from '../../redux/slices/auth';
+import toast from 'react-hot-toast';
 
 const SearchDialog = lazy(() => import('../specific/SearchDialog'));
 const NotificationsDialog = lazy(() =>
@@ -27,6 +30,7 @@ const NewGroupsDialog = lazy(() => import('../specific/NewGroupsDialog'));
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isSearch, setIsSearch] = useState(false);
   const [notification, setNotifications] = useState(false);
@@ -40,7 +44,7 @@ const Header = () => {
   };
 
   const openNewGroups = () => {
-    setNewGroups(!newGroups)
+    setNewGroups(!newGroups);
   };
 
   const openNotification = () => {
@@ -50,7 +54,8 @@ const Header = () => {
   const navigateToGroup = () => navigate('/groups');
 
   const logoutHandler = () => {
-    console.log('logoutHandler ');
+    dispatch(userNotExits());
+    toast.success('Logout Sucessfully...!');
   };
 
   return (
