@@ -17,12 +17,18 @@ const ChatList = ({
   handleDeleteChat,
 }) => {
   return (
-    <Stack width={w} direction={'column'} overflow={'auto'} height={"100vh"} sx={{
-      backgroundImage : bgGradiyent
-    }}>
+    <Stack
+      width={w}
+      direction={'column'}
+      overflow={'auto'}
+      height={'100vh'}
+      sx={{
+        backgroundImage: bgGradiyent,
+      }}
+    >
       {chats?.map((data, index) => {
-        const { avatar, name, _id, member, groupChat } = data;
-        const isOnline = member.some((member) => member.includes(_id));
+        const { avatar, name, _id, members, groupChat } = data;
+        const isOnline = members.some((member) => member.includes(_id));
         const newMessageCount = newMessageAlert.find(
           ({ chatId }) => chatId === _id
         );
