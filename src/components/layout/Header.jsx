@@ -18,9 +18,10 @@ import {
   Notifications as NotificationsIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userNotExits } from '../../redux/slices/auth';
 import toast from 'react-hot-toast';
+import { setIsMobileMenuFriend, setIsSearch } from '../../redux/slices/misc';
 
 const SearchDialog = lazy(() => import('../specific/SearchDialog'));
 const NotificationsDialog = lazy(() =>
@@ -32,15 +33,16 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isSearch, setIsSearch] = useState(false);
+  const { isSearch } = useSelector((state) => state.misc);
+
   const [notification, setNotifications] = useState(false);
   const [newGroups, setNewGroups] = useState(false);
 
   const handleMobile = () => {
-    console.log('Mobile');
+    dispatch(setIsMobileMenuFriend(true));
   };
   const openSearchDialog = () => {
-    setIsSearch(!isSearch);
+    dispatch(setIsSearch(true));
   };
 
   const openNewGroups = () => {

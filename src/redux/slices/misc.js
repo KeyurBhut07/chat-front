@@ -22,7 +22,42 @@ const miscSlice = createSlice({
     setIsNewGroup: (state, action) => {
       state.isNewGroup = action.payload;
     },
+    setIsAddMember: (state, action) => {
+      state.isAddMember = action.payload;
+    },
+    setIsNotification: (state, action) => {
+      state.isNotification = action.payload;
+    },
+    setIsMobileMenuFriend: (state, action) => {
+      state.isMobileMenuFriend = action.payload;
+    },
+    setIsSearch: (state, action) => {
+      state.isSearch = action.payload;
+    },
+    setIsFileMenu: (state, action) => {
+      state.isFileMenu = action.payload;
+    },
+    setIsDeleteMenu: (state, action) => {
+      state.isDeleteMenu = action.payload;
+    },
+    setUploadLoader: (state, action) => {
+      state.uploadingLoader = action.payload;
+    },
+    setSelectedDeleteChat: (state, action) => {
+      state.selectedDeleteChat = action.payload;
+    },
   },
 });
-export const {} = miscSlice.actions;
+export const {
+  setIsNewGroup,
+  setIsAddMember,
+  setIsNotification,
+  setIsMobileMenuFriend,
+  setIsSearch,
+  setIsFileMenu,
+  setIsDeleteMenu,
+  setUploadLoader,
+  setSelectedDeleteChat,
+} = miscSlice.actions;
+
 export default miscSlice;

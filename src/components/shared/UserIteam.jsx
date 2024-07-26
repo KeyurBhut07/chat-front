@@ -1,6 +1,7 @@
 import { Add as AddIcon, Remove as RemoveIcon } from '@mui/icons-material';
 import { Avatar, IconButton, ListItem, Stack, Typography } from '@mui/material';
 import React, { memo } from 'react';
+import { transformImage } from '../lib/features';
 
 const UserIteam = ({
   user,
@@ -19,7 +20,7 @@ const UserIteam = ({
         width={'100%'}
         {...styling}
       >
-        <Avatar />
+        <Avatar src={transformImage(avatar)} />
         <Typography
           variant="body1"
           sx={{
@@ -43,7 +44,7 @@ const UserIteam = ({
               backgroundColor: isAdded ? 'error.dark' : 'primary.dark',
             },
           }}
-          onClick={() => handler( )}
+          onClick={() => handler()}
           disabled={handlerIsLoading}
         >
           {isAdded ? <RemoveIcon /> : <AddIcon />}

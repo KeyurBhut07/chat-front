@@ -9,21 +9,46 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserIteam from '../shared/UserIteam';
 import { sampleUsers } from '../constants/sampleData';
-
-const users = [];
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsSearch } from '../../redux/slices/misc';
+import { useLazySearchUserQuery } from '../../redux/api/api';
 
 const SearchDialog = () => {
-  const [users, setUsers] = useState(sampleUsers);
-  const [search, setSearch] = useState();
+  const { isSearch } = useSelector((state) => state.misc);
+  const dispatch = useDispatch();
+
+  const [searchUser] = useLazySearchUserQuery();
+
+  const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState('');
+  let isLoadingSendFriendRequest = false;
+  const searchCloseHandler = () => {
+    dispatch(setIsSearch(false));
+  };
   const addFriendHandler = (id) => {
     console.log('id: ', id);
   };
-  let isLoadingSendFriendRequest = false;
+
+  useEffect(() => {
+    const timeOutId = setTimeout(() => {
+      searchUser(search)
+        .then(({ data }) => {
+          setUsers(data?.users);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 1000);
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [search]);
+
   return (
-    <Dialog open>
+    <Dialog open={isSearch} onClose={searchCloseHandler}>
       <Stack p={'2rem'} direction={'column'} width={'25rem'}>
         <DialogTitle textAlign={'center'}>Find People</DialogTitle>
         <TextField
@@ -42,14 +67,15 @@ const SearchDialog = () => {
           }}
         />
         <List>
-          {users?.map((user) => (
-            <UserIteam
-              key={user._id}
-              user={user}
-              handler={addFriendHandler}
-              handlerIsLoading={isLoadingSendFriendRequest}
-            />
-          ))}
+          {users.length > 0 &&
+            users?.map((user) => (
+              <UserIteam
+                key={user._id}
+                user={user}
+                handler={addFriendHandler}
+                handlerIsLoading={isLoadingSendFriendRequest}
+              />
+            ))}
         </List>
       </Stack>
     </Dialog>

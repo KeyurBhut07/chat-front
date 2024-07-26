@@ -1,33 +1,53 @@
 import React from 'react';
 import Header from './Header';
 import Title from '../shared/Title';
-import { Grid } from '@mui/material';
+import { Drawer, Grid } from '@mui/material';
 import ChatList from '../specific/ChatList';
 import { sampleChats } from '../constants/sampleData';
 import { useParams } from 'react-router-dom';
 import Profile from '../specific/Profile';
 import { useMyChatsQuery } from '../../redux/api/api';
 import { LayoutLoaders } from './Loaders';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsMobileMenuFriend } from '../../redux/slices/misc';
+import { useErrors } from '../../hooks/hook';
 
 const AppLayout = () => (WrappComponent) => {
   return (props) => {
     const params = useParams();
     const chatId = params.chatId;
+    const disptach = useDispatch();
+
+    const { isMobileMenuFriend } = useSelector((store) => store.misc);
+    const { isLoading, data, error, isError, refetch } = useMyChatsQuery();
+
+    useErrors([{ isError, error }]);
 
     const handleDeleteChat = (e, _id, groupChat) => {
       e.preventDefault();
       console.log('delete chat', _id, groupChat);
     };
 
-    const { isLoading, data, error } = useMyChatsQuery();
-    console.log('isLoading: ', isLoading);
-
-    console.log('data: ');
+    const handleMobileClose = () => disptach(setIsMobileMenuFriend(false));
 
     return (
       <>
         <Title />
         <Header />
+        {isLoading ? (
+          <LayoutLoaders />
+        ) : (
+          <Drawer open={isMobileMenuFriend} onClose={handleMobileClose}>
+            <ChatList
+              w="70vw"
+              chats={data?.chats}
+              chatId={chatId}
+              onlineUers={[]}
+              newMessageAlert={[]}
+              handleDeleteChat={handleDeleteChat}
+            />
+          </Drawer>
+        )}
         <Grid container height={'calc(100vh-4rem)'}>
           <Grid
             item

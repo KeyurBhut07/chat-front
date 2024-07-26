@@ -16,15 +16,27 @@ const api = createApi({
     },
   }),
   // cashing
-  tagTypes: ['Chats'],
+  tagTypes: ['Chat', 'User'],
   // define API endpoints
   endpoints: (builder) => ({
+    // chat endpoint
     myChats: builder.query({
       query: () => 'chats/my',
-      providesTags: ['Chats'],
+      providesTags: ['Chat'],
+    }),
+
+    // search user
+    searchUser: builder.query({
+      query: (name) => ({
+        url: 'user/search',
+        method: 'POST',
+        body: { name },
+      }),
+
+      providesTags: ['User'],
     }),
   }),
 });
 
-export const { useMyChatsQuery } = api;
+export const { useMyChatsQuery, useLazySearchUserQuery } = api;
 export default api;
