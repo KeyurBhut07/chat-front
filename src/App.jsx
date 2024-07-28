@@ -7,6 +7,7 @@ import { userExits, userNotExits } from './redux/slices/auth';
 import { Toaster } from 'react-hot-toast';
 import { getRequest } from './api/apiServices';
 import { apiList } from './api/apiList';
+import { SocketProvider } from './socket';
 
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
@@ -40,7 +41,13 @@ const App = () => {
     <BrowserRouter>
       <Suspense fallback={<LayoutLoaders />}>
         <Routes>
-          <Route element={<ProttectRoutes user={user} />}>
+          <Route
+            element={
+              <SocketProvider>
+                <ProttectRoutes user={user} />
+              </SocketProvider>
+            }
+          >
             <Route path="/" element={<Home />} />
             <Route path="/chat/:chatId" element={<Chat />} />
             <Route path="/groups" element={<Groups />} />

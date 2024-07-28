@@ -11,12 +11,17 @@ import { LayoutLoaders } from './Loaders';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsMobileMenuFriend } from '../../redux/slices/misc';
 import { useErrors } from '../../hooks/hook';
+import { getSocket } from '../../socket';
 
 const AppLayout = () => (WrappComponent) => {
   return (props) => {
     const params = useParams();
     const chatId = params.chatId;
     const disptach = useDispatch();
+
+    // Access Socket
+    const socket = getSocket();
+    console.log('socket: ', socket.id);
 
     const { isMobileMenuFriend } = useSelector((store) => store.misc);
     const { user } = useSelector((store) => store.auth);
