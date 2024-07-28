@@ -32,11 +32,45 @@ const api = createApi({
         method: 'POST',
         body: { name },
       }),
-
       providesTags: ['User'],
+    }),
+
+    // send friend request
+    sendFriendRequest: builder.mutation({
+      query: (data) => ({
+        url: 'user/send-request',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    // getnotification user
+    getNotifications: builder.query({
+      query: () => ({
+        url: 'user/notifications',
+        method: 'GET',
+      }),
+      keepUnusedDataFor: 0,
+    }),
+
+    // acceptfriend request
+    acceptFriendRequest: builder.mutation({
+      query: (data) => ({
+        url: 'user/accept-request',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Chat'],
     }),
   }),
 });
 
-export const { useMyChatsQuery, useLazySearchUserQuery } = api;
+export const {
+  useMyChatsQuery,
+  useLazySearchUserQuery,
+  useSendFriendRequestMutation,
+  useGetNotificationsQuery,
+  useAcceptFriendRequestMutation,
+} = api;
 export default api;

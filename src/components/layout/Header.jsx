@@ -21,7 +21,11 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userNotExits } from '../../redux/slices/auth';
 import toast from 'react-hot-toast';
-import { setIsMobileMenuFriend, setIsSearch } from '../../redux/slices/misc';
+import {
+  setIsMobileMenuFriend,
+  setIsNotification,
+  setIsSearch,
+} from '../../redux/slices/misc';
 
 const SearchDialog = lazy(() => import('../specific/SearchDialog'));
 const NotificationsDialog = lazy(() =>
@@ -33,9 +37,8 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isSearch } = useSelector((state) => state.misc);
+  const { isSearch, isNotification } = useSelector((state) => state.misc);
 
-  const [notification, setNotifications] = useState(false);
   const [newGroups, setNewGroups] = useState(false);
 
   const handleMobile = () => {
@@ -50,7 +53,7 @@ const Header = () => {
   };
 
   const openNotification = () => {
-    setNotifications(!notification);
+    dispatch(setIsNotification(true));
   };
 
   const navigateToGroup = () => navigate('/groups');
@@ -118,7 +121,7 @@ const Header = () => {
           <SearchDialog />
         </Suspense>
       )}
-      {notification && (
+      {isNotification && (
         <Suspense fallback={<Backdrop open />}>
           <NotificationsDialog />
         </Suspense>

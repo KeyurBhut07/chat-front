@@ -19,6 +19,7 @@ const AppLayout = () => (WrappComponent) => {
     const disptach = useDispatch();
 
     const { isMobileMenuFriend } = useSelector((store) => store.misc);
+    const { user } = useSelector((store) => store.auth);
     const { isLoading, data, error, isError, refetch } = useMyChatsQuery();
 
     useErrors([{ isError, error }]);
@@ -84,7 +85,7 @@ const AppLayout = () => (WrappComponent) => {
               backgroundColor: 'rgba(0,0,0,0.85)',
             }}
           >
-            <Profile />
+            <Profile user={user} />
           </Grid>
         </Grid>
       </>
