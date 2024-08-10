@@ -15,6 +15,9 @@ const SocketProvider = ({ children }) => {
     () =>
       io(server, {
         withCredentials: true,
+        extraHeaders: {
+          Authorization: `Bearer ${getToken()}`,
+        },
       }),
     []
   );

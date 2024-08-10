@@ -16,7 +16,7 @@ const api = createApi({
     },
   }),
   // cashing
-  tagTypes: ['Chat', 'User'],
+  tagTypes: ['Chat', 'User', 'Message'],
   // define API endpoints
   endpoints: (builder) => ({
     // chat endpoint
@@ -63,6 +63,26 @@ const api = createApi({
       }),
       invalidatesTags: ['Chat'],
     }),
+
+    // acceptfriend request
+    chatDetails: builder.query({
+      query: ({ chatId, populate = false }) => ({
+        url: `chats/${chatId}`,
+        method: 'GET',
+        params: { populate },
+      }),
+      providesTags: ['Chat'],
+    }),
+
+    //get chat messages
+    getMessages: builder.query({
+      query: ({ chatId, page = 1, limit = 10 }) => ({
+        url: `chats/message/${chatId}`,
+        method: 'POST',
+        body: { page, limit },
+      }),
+      providesTags: ['Message'],
+    }),
   }),
 });
 
@@ -72,5 +92,7 @@ export const {
   useSendFriendRequestMutation,
   useGetNotificationsQuery,
   useAcceptFriendRequestMutation,
+  useChatDetailsQuery,
+  useGetMessagesQuery,
 } = api;
 export default api;
