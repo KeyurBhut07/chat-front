@@ -6,9 +6,10 @@ import { fileFormat } from '../lib/features';
 import RenderAttachments from './RenderAttachments';
 
 const MessageComponent = ({ message, user }) => {
-  const { sender, attchments = [], content, createdAt } = message;
+  console.log('message: ', message);
+  const { sender, attachments = [], content, createdAt } = message;
   const sameSender = sender?._id === user?._id;
-  const timeAgo = moment(Date.now()).fromNow();
+  const timeAgo = moment(createdAt).fromNow();
   return (
     <div
       style={{
@@ -28,8 +29,8 @@ const MessageComponent = ({ message, user }) => {
 
       {/***  Attachment */}
 
-      {attchments.length > 0 &&
-        attchments.map((attachment, index) => {
+      {attachments.length > 0 &&
+        attachments.map((attachment, index) => {
           const url = attachment.url;
           const file = fileFormat(url);
           return (

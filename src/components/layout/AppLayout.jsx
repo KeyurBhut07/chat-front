@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Header from './Header';
 import Title from '../shared/Title';
 import { Drawer, Grid } from '@mui/material';
@@ -10,8 +10,9 @@ import { useMyChatsQuery } from '../../redux/api/api';
 import { LayoutLoaders } from './Loaders';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsMobileMenuFriend } from '../../redux/slices/misc';
-import { useErrors } from '../../hooks/hook';
+import { useErrors, useSocketEvents } from '../../hooks/hook';
 import { getSocket } from '../../socket';
+import { NEW_FRIEND_REQUEST, NEW_MESSAGE_ALERT } from '../constants/events';
 
 const AppLayout = () => (WrappComponent) => {
   return (props) => {
@@ -36,6 +37,16 @@ const AppLayout = () => (WrappComponent) => {
 
     const handleMobileClose = () => disptach(setIsMobileMenuFriend(false));
 
+    // listing event
+    const newMessageAlertEventlisten = useCallback(() => {}, []);
+    const newFriendRequesttEventlisten = useCallback(() => {}, []);
+    const eventHandlers = {
+      [NEW_MESSAGE_ALERT]: newMessageAlertEventlisten,
+      [NEW_FRIEND_REQUEST]: newFriendRequesttEventlisten,
+    };
+
+    // event hook
+    useSocketEvents(socket, eventHandlers);
     return (
       <>
         <Title />
