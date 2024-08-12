@@ -13,6 +13,7 @@ import { setIsMobileMenuFriend } from '../../redux/slices/misc';
 import { useErrors, useSocketEvents } from '../../hooks/hook';
 import { getSocket } from '../../socket';
 import { NEW_FRIEND_REQUEST, NEW_MESSAGE_ALERT } from '../constants/events';
+import { incrementNotificationCount } from '../../redux/slices/chat';
 
 const AppLayout = () => (WrappComponent) => {
   return (props) => {
@@ -39,7 +40,9 @@ const AppLayout = () => (WrappComponent) => {
 
     // listing event
     const newMessageAlertEventlisten = useCallback(() => {}, []);
-    const newFriendRequesttEventlisten = useCallback(() => {}, []);
+    const newFriendRequesttEventlisten = useCallback(() => {
+      disptach(incrementNotificationCount());
+    }, [disptach]);
     const eventHandlers = {
       [NEW_MESSAGE_ALERT]: newMessageAlertEventlisten,
       [NEW_FRIEND_REQUEST]: newFriendRequesttEventlisten,
