@@ -17,7 +17,7 @@ const chatSlice = createSlice({
   },
 });
 
-const { incrementNotificationCount, resetNotificationsCount } =
+export const { incrementNotificationCount, resetNotificationsCount } =
   chatSlice.actions;
 
 export default chatSlice;

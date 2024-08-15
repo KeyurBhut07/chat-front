@@ -27,6 +27,7 @@ import {
   setIsNotification,
   setIsSearch,
 } from '../../redux/slices/misc';
+import { resetNotificationsCount } from '../../redux/slices/chat';
 
 const SearchDialog = lazy(() => import('../specific/SearchDialog'));
 const NotificationsDialog = lazy(() =>
@@ -48,7 +49,7 @@ const Header = () => {
   };
   const openSearchDialog = () => {
     dispatch(setIsSearch(true));
-  };
+  };    
 
   const openNewGroups = () => {
     setNewGroups(!newGroups);
@@ -56,6 +57,7 @@ const Header = () => {
 
   const openNotification = () => {
     dispatch(setIsNotification(true));
+    dispatch(resetNotificationsCount());
   };
 
   const navigateToGroup = () => navigate('/groups');
@@ -92,6 +94,7 @@ const Header = () => {
                 title={'notification'}
                 icon={<NotificationsIcon />}
                 onClick={openNotification}
+                value={notificationCount}
               />
               <IconBtn
                 title={'search'}
