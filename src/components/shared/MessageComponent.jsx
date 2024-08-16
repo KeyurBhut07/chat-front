@@ -6,7 +6,6 @@ import { fileFormat } from '../lib/features';
 import RenderAttachments from './RenderAttachments';
 
 const MessageComponent = ({ message, user }) => {
-  console.log('message: ', message);
   const { sender, attachments = [], content, createdAt } = message;
   const sameSender = sender?._id === user?._id;
   const timeAgo = moment(createdAt).fromNow();

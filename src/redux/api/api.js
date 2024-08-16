@@ -81,7 +81,7 @@ const api = createApi({
         method: 'POST',
         body: { page, limit },
       }),
-      providesTags: ['Message'],
+      keepUnusedDataFor: 0,
     }),
 
     // send attachment

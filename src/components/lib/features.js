@@ -31,4 +31,15 @@ const getLast7Days = () => {
   return laste7Days;
 };
 
-export { fileFormat, transformImage, getLast7Days };
+// save in localstorage
+const getOrSaveFromLocalStorage = ({ key, value, get }) => {
+  if (get) {
+    return localStorage.getItem(key)
+      ? JSON.parse(localStorage.getItem(key))
+      : null;
+  } else {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
+export { fileFormat, transformImage, getLast7Days, getOrSaveFromLocalStorage };

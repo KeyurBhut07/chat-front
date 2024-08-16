@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Header from './Header';
 import Title from '../shared/Title';
 import { Drawer, Grid } from '@mui/material';
@@ -13,7 +13,11 @@ import { setIsMobileMenuFriend } from '../../redux/slices/misc';
 import { useErrors, useSocketEvents } from '../../hooks/hook';
 import { getSocket } from '../../socket';
 import { NEW_FRIEND_REQUEST, NEW_MESSAGE_ALERT } from '../constants/events';
-import { incrementNotificationCount } from '../../redux/slices/chat';
+import {
+  incrementNotificationCount,
+  setNewMessagesAlert,
+} from '../../redux/slices/chat';
+import { getOrSaveFromLocalStorage } from '../lib/features';
 
 const AppLayout = () => (WrappComponent) => {
   return (props) => {
@@ -26,10 +30,19 @@ const AppLayout = () => (WrappComponent) => {
     console.log('socket: ', socket.id);
 
     const { isMobileMenuFriend } = useSelector((store) => store.misc);
+    const { newMessagesAlert } = useSelector((store) => store.chat);
     const { user } = useSelector((store) => store.auth);
     const { isLoading, data, error, isError, refetch } = useMyChatsQuery();
 
     useErrors([{ isError, error }]);
+
+    // setData in localStorage
+    useEffect(() => {
+      getOrSaveFromLocalStorage({
+        key: NEW_MESSAGE_ALERT,
+        value: newMessagesAlert,
+      });
+    }, [newMessagesAlert]);
 
     const handleDeleteChat = (e, _id, groupChat) => {
       e.preventDefault();
@@ -39,7 +52,17 @@ const AppLayout = () => (WrappComponent) => {
     const handleMobileClose = () => disptach(setIsMobileMenuFriend(false));
 
     // listing event
-    const newMessageAlertEventlisten = useCallback(() => {}, []);
+
+    // message count
+    const newMessageAlertEventlisten = useCallback(
+      (data) => {
+        if (data.chatId === chatId) return;
+        disptach(setNewMessagesAlert(data));
+      },
+      [chatId]
+    );
+
+    // friend request
     const newFriendRequesttEventlisten = useCallback(() => {
       disptach(incrementNotificationCount());
     }, [disptach]);
@@ -63,7 +86,7 @@ const AppLayout = () => (WrappComponent) => {
               chats={data?.chats}
               chatId={chatId}
               onlineUers={[]}
-              newMessageAlert={[]}
+              newMessageAlert={newMessagesAlert}
               handleDeleteChat={handleDeleteChat}
             />
           </Drawer>
@@ -85,7 +108,7 @@ const AppLayout = () => (WrappComponent) => {
                 chats={data?.chats}
                 chatId={chatId}
                 onlineUers={[]}
-                newMessageAlert={[]}
+                newMessageAlert={newMessagesAlert}
                 handleDeleteChat={handleDeleteChat}
               />
             )}

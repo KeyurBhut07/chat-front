@@ -49,7 +49,7 @@ const Header = () => {
   };
   const openSearchDialog = () => {
     dispatch(setIsSearch(true));
-  };    
+  };
 
   const openNewGroups = () => {
     setNewGroups(!newGroups);
